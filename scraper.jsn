@@ -1,0 +1,32 @@
+const cheerio = require("cheerio");
+const axios = require("axios");
+const INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+const topAccounts = ["elonmusk", "jackdorsey", "billgates", "barackobama", "kanyewest"];
+
+async function getTweets() {
+  const tweets = [];
+  for (const account of topAccounts) {
+    const response = await axios.get(`https://twitter.com/${account}`);
+    const $ = cheerio.load(response.data);
+
+    $(".tweet").each((index, element) => {
+      const tweet = {
+        username: $(element).find(".username").text(),
+        text: $(element).find(".tweet-text").text(),
+        createdAt: $(element).find("._timestamp").attr("data-time"),
+      };
+      tweets.push(tweet);
+    });
+  }
+
+  return tweets;
+}
+
+(async () => {
+  while (true) {
+    const tweets = await getTweets();
+    console.log(tweets);
+    await new Promise((resolve) => setTimeout(resolve, INTERVAL));
+  }
+})();
