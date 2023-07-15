@@ -53,5 +53,16 @@ async function scrapeArticle(url) {
   return text;
 }
 
+async function scrapeArticle(url) {
+  const response = await fetch(url);
+  const html = await response.text();
+  const $ = cheerio.load(html);
+
+  const article = $('article');
+  const text = article.find('div', class_='story-body__inner').text();
+  return text;
+}
+
+
 const text = await scrapeArticle('https://www.bbc.com/news/world-us-canada-62130306');
   console.log(text);
