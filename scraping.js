@@ -66,3 +66,27 @@ async function scrapeArticle(url) {
 
 const text = await scrapeArticle('https://www.bbc.com/news/world-us-canada-62130306');
   console.log(text);
+
+
+function recommendSong(playlist) {
+  try {
+    // Check if the playlist is an array
+    if (!Array.isArray(playlist)) {
+      throw new TypeError("The playlist must be an array");
+    }
+
+    // Check if the playlist is empty
+    if (playlist.length === 0) {
+      throw new Error("The playlist is empty");
+    }
+
+    // Implement your recommendation logic here
+    // For example, you can return a random song from the playlist
+    const randomIndex = Math.floor(Math.random() * playlist.length);
+    return playlist[randomIndex];
+  } catch (error) {
+    // Log the error
+    console.error(error);
+    return null;
+  }
+}
