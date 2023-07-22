@@ -1,4 +1,4 @@
-// Various unit tests 
+
 // This test checks that the shopping cart can remove an item.
 test('Can remove item from shopping cart', () => {
   const shoppingCart = new ShoppingCart();
