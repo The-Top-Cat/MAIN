@@ -3,4 +3,3 @@ The main repository
 
 This is the main readme of the project
 
-Add words here
